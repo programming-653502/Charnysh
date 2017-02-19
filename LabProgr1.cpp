@@ -9,7 +9,7 @@
 int main()
 {
 	setlocale(LC_ALL, "");
-	long unsigned int n=0;
+	long int n=0;
 	char po_vozr=0, po_ubyv=0;
 	do {
 		printf_s("Ââåäèòå öåëîå ÷èñëî \n");
