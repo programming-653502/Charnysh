@@ -9,35 +9,53 @@
 int main()
 {
 	setlocale(LC_ALL, "");
-	long int n=0;
-	char po_vozr=0, po_ubyv=0;
-	do {
-		printf_s("Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ Ã¶Ã¥Ã«Ã®Ã¥ Ã·Ã¨Ã±Ã«Ã® \n");
-		
+	char po_vozr = 0, po_ubyv = 0;
+	char correct = 0;
+//	do {
+
+		printf("Ââåäèòå öåëîå ÷èñëî \n");
+		long int n = 0;
+		//fflush(stdin);
 		scanf_s("%d", &n);
+		//scanf_s("%d", &n);
+		while (n) {
+			correct = 1;
+			do {
+				if ((n % 10) > ((n % 100) / 10))
+					po_vozr = 1;
+				else if ((n % 10) < ((n % 100) / 10))
+					po_ubyv = 1;
+				if (po_ubyv == po_vozr) {
+					printf("Íå ïî âîçäðàñòàíuþ, íå ïî óáûâàíuþ\n");
+					break;
+				}
+				if ((n % 10) == ((n % 100) / 10)) {
+					printf("Íå ïî âîçäðàñòàíuþ, íå ïî óáûâàíuþ\n");
+					break;
+				}
+					n /= 10;
+
+			} while ((n / 10) != 0);
+
+			if ((po_vozr == 1) && (po_ubyv == 0))
+				printf("Ïî âîçðàñòàíèþ(ñëåâà íàïðàâî)\n");
+			if ((po_ubyv == 1) && (po_vozr == 0))
+				printf("Ïî óáûâàíèþ(ñëåâà íàïðàâî)\n");
+			n = 0;
+			
+			
+		}
+		if (correct == 0)
+			printf("Íå ïðàâèëüíî ââåäåíû äàííûå\n");
+		printf(" Ëþáàÿ êëàâèøà äëÿ âûõîäà");
+		_getch();
+		//printf("Ïîâòîðèòü? íàæìèòå Y\n\n\n");
+		//po_ubyv = 0; po_vozr = 0;
+		//correct = 0;
 		
-		do {
-			if ((n % 10) >= ((n % 100) / 10))
-				po_vozr = 1;
-			if ((n % 10) <= ((n % 100) / 10))
-				po_ubyv = 1;
-			if (po_ubyv == po_vozr) {
-				printf("ÃÃ¥ Ã¯Ã® Ã¢Ã®Ã§Ã¤Ã°Ã Ã±Ã²Ã Ã­uÃ¾, Ã­Ã¥ Ã¯Ã® Ã³Ã¡Ã»Ã¢Ã Ã­uÃ¾\n");
-				break;
-			}
-			else
-				n /= 10;
-		} while (((n / 100)!=0)&&(n%10<10));
-		if ((po_vozr == 1) && (po_ubyv == 0))
-			printf("ÃÃ® Ã¢Ã®Ã§Ã°Ã Ã±Ã²Ã Ã­Ã¨Ã¾(Ã±Ã«Ã¥Ã¢Ã  Ã­Ã Ã¯Ã°Ã Ã¢Ã®)\n");
-		if ((po_ubyv == 1) && (po_vozr == 0))
-			printf("ÃÃ® Ã³Ã¡Ã»Ã¢Ã Ã­Ã¨Ã¾(Ã±Ã«Ã¥Ã¢Ã  Ã­Ã Ã¯Ã°Ã Ã¢Ã®)\n");
-		printf("ÃÃ®Ã¢Ã²Ã®Ã°Ã¨Ã²Ã¼? Ã­Ã Ã¦Ã¬Ã¨Ã²Ã¥ Y\n\n\n");
-		n = 0;
-		
-	} while (_getch() == 'y');
-	
+	//} while ((_getch() == 'y'));//&& (getchar()) != '\n');
+
 	return 0;
-	
+
 }
 
