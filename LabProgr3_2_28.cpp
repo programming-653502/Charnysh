@@ -27,7 +27,7 @@ int SafeIn(void)
 
 float** InPut(int *r)
 {
-	int R = 0, C = 0;
+	int R = 0;
 	int i = 0, j = 0, temp = 0;
 	float **Matrix = NULL;
 
@@ -35,36 +35,34 @@ float** InPut(int *r)
 	R = SafeIn();
 	*r = R;
 
-	/*printf("\nWhat's the number of rows?");
-	C = SafeIn();*/
-	//*c = C;
-	//Matrix = (float **)malloc(sizeof(float)*R);
-	(Matrix = (float **)calloc(R, sizeof(float*)));
+	
+	Matrix = (float **)calloc(R, sizeof(float*));
 	if(Matrix == NULL)
 	{
-	printf("Cannot find so much free memory for your matrix. Please restart.");
-	return NULL;
+		printf("Cannot find so much free memory for your matrix. Please restart.");
+		return NULL;
 	}
 	for (i = 0; i<R; i++)
 	{
-		Matrix[i] = (float*)calloc(C, sizeof(float));
+		Matrix[i] = (float*)calloc(R, sizeof(float));
 		if(Matrix[i] == NULL)
 		{
-		printf("Cannot find so much free memory for your matrix. Please restart.");
-		return NULL;
+			printf("Cannot find so much free memory for your matrix. Please restart.");
+			return NULL;
 		}
 	}
 	for (i = 0; i<R; i++)
 	{
-		for (j = 0; j<C; j++)
+		for (j = 0; j<R; j++)
 		{
+			printf("\n[%d][%d]=", i, j);
 			temp = SafeIn();
 			Matrix[i][j] = temp;
 		}
 	}
 	return Matrix;
 }
-void PrintM(float ** Mtrx, int *r)// , int *c)
+void PrintM(float ** Mtrx, int *r)
 {
 	int i = 0, j = 0;
 	for (; i<(*r); i++)
@@ -130,9 +128,9 @@ int main(int argc, char *argv[]) {
 	int Rows = 0;// Cols = 0;
 	int i = 0, j = 0;
 	printf("Hello! Matrix rebuilding program. Please, enter the matrix");
-	Matrix = InPut(&Rows);// &Cols);
+	Matrix = InPut(&Rows);
 	Diagonale(Matrix, &Rows);
-	PrintM(Matrix, &Rows);// &Cols);
+	PrintM(Matrix, &Rows);
 	for (i = 0; i<Rows; i++)
 	{
 		free(Matrix[i]);
