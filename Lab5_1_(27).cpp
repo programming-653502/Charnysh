@@ -1,3 +1,14 @@
+#define QUEUES_QUANTITY 10
+#include "stdafx.h"
+#include <stdio.h>
+#include <random>
+#include <conio.h>
+
+
+
+
+
+
 struct QueueItem
 {
 	QueueItem* Next;
