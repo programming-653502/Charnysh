@@ -1,0 +1,10 @@
+This is a small calendar program to work with .ics files.
+
+The main concept is storing events in a standartised EVENT class items. Events from multiple calendar files are united into one CalendarSettings object, which provides enouth functions to operate with files and events in the program. There is also a TrueDate class to store the date and time that has nessesary flexibility for date values operating in my program
+
+User can set up his own calendar file or add exicting ones.(Many of them are available for free in the Internet). It should be done once at least.
+On next starts the program analyses all the files included, shows events for today and shows messages at the time of the event(using TTimer component of <vcl.h>).
+You can add, change, delete events and calendars. Open events of the seleced date.
+
+Every form has Help button, which shows ABOUT window with instructions. This program doesn't have much pages or user operations that's why it was easy to create inctructions on every point. 
+
