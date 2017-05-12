@@ -30,6 +30,7 @@ int Enterprise::ChangeWorker(Worker* Change)
 
 void Enterprise::PagePrint(Worker* Next)
 {
+	// Вывод одной записи в строки страничного вида
 	AnsiString StrVal = "";
 	StrVal.cat_printf(Next->Name);
 	Form6->NameEdit->Text = StrVal;
@@ -43,7 +44,7 @@ void Enterprise::PagePrint(Worker* Next)
 	Form6->AppointmentCbox->ItemIndex = Next->Position-1;
 	Form6->EducationCbox->ItemIndex = Next->Degree-1;
 	Form6->OnDutyChckBox->Checked = Next->OnDuty;
-	//ShowingCell++;
+	
 }
 void PageViewElementsEnabled(Mode appMode)
 {
@@ -83,6 +84,7 @@ void PageViewElementsEnabled(Mode appMode)
 }
 void SetWorker(Worker* ToSet)
 {
+	//Копирование инфы из строк ввода в переменную типа Worker
 	Form6->PageControl1->ActivePageIndex = 1;
 	AnsiString AnsiVal = Form6->NameEdit->Text;
 	strcpy(ToSet->Name,AnsiVal.c_str());
@@ -104,6 +106,7 @@ void SetWorker(Worker* ToSet)
 }
 void Enterprise::AddNewPerson()
 {
+	// Добаление нового работника
 	Worker* NewGuy = new Worker;
 	SetWorker(NewGuy);
 	AllWorkers.pushItem(NewGuy);
