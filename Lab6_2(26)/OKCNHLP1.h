@@ -18,6 +18,8 @@
 
 #include "ExternVars.h"
 #include "ReportIncludesList.h"
+
+//Диалог настройки фильтров
 //----------------------------------------------------------------------------
 class TFiltersDlg1 : public TOKBottomDlg
 {
