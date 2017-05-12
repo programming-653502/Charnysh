@@ -2,7 +2,7 @@
 
 #ifndef ReportIncludesListH
 #define ReportIncludesListH
-
+//Вспомогательный односвязный список для хранения номеров ячеек
 struct ReportItem
 {
 	int Cell;
