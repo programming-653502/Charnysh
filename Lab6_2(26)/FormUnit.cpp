@@ -24,6 +24,7 @@ Worker *ToFind;
 
 int Enterprise::ChangeWorker(Worker* Change)
 {
+	
 	AllWorkers.changeItem(Change->ID,Change);
 }
 
@@ -46,6 +47,7 @@ void Enterprise::PagePrint(Worker* Next)
 }
 void PageViewElementsEnabled(Mode appMode)
 {
+	//В зависимости от режима программы, включает/отключает кнопки, ввод
 	bool editsEnabled = true;
 	bool buttonsEnabled = true;
 	bool editButtonsEnabled = true;
@@ -108,6 +110,9 @@ void Enterprise::AddNewPerson()
 }
 void Enterprise::AddToGrid(Worker* Next)
 {
+	//Вывод следующей записи в таблицу
+	//Она служит еще и как массив выбранных по определенным условиям записей, из нее составляем рапорты
+	//При изменении фильтров перезагружается.
 	Form6->StringGrid1->RowCount=NextFreeCell+1;
 	Form6->StringGrid1->Cells[0][NextFreeCell] = IntToStr(Next->ID);
 	Form6->StringGrid1->Cells[1][NextFreeCell] = Next->Name;
@@ -189,6 +194,7 @@ void __fastcall TForm6::FormCreate(TObject *Sender)
 	MyEnterprise = new Enterprise(DBFileName);
     PageControl1->ActivePageIndex = 0;
 	MyEnterprise->PrintAll();
+	// Заполнение заголков столбцов в таблице
 	AnsiString ColumnNames[] = {"ID","Name","On Duty","Appointment","Birthday","Employed since","Last Vacations","Passport No","Social Card","Insurance","Degree","Special Marks"};
 	for (int i = 0; i < 12; i++) {
 		StringGrid1->Cells[i][0] = ColumnNames[i];
@@ -197,6 +203,7 @@ void __fastcall TForm6::FormCreate(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TForm6::ModeBoxChange(TObject *Sender)
 {
+	//По переключению режимов все изменения из списка переносятся в файл
 	MyEnterprise->WriteToFile(DBFileName);
 	MyEnterprise->LoadFromFile(DBFileName);
 	MyEnterprise->PrintAll();
@@ -335,18 +342,20 @@ void __fastcall TForm6::ButtonComposeClick(TObject *Sender)
 {
 	int ItemsCount = StringGrid1->RowCount;
 	int i = 1;
-    for(int i = 0; i < IncludeBox1->Items->Count; i++)
+	//Из блока checkbox кнопок проверяем, какие из них отмечены, и их номера во вспомогательный список includesList
+    for(int i = 0; i < IncludeBox1->Items->Count; i++)  
 	{
 		if(IncludeBox1->Checked[i])
 			includesList.PushItem(i);
 	}
 	while(i<ItemsCount)
 	{
+		//Из соответствующей ячейки в таблице инфа заносится в текстовое поле, в котором пользователь составляет рапорт
 		int Field;
 		AnsiString OneLine = " ";
 		while ((Field = includesList.PopItem())>=0) {
 		   if(Field != 1 && Field != 2)
-              OneLine += StringGrid1->Cells[Field][0] + ": ";
+             		 OneLine += StringGrid1->Cells[Field][0] + ": ";
 		   OneLine += StringGrid1->Cells[Field][i] + ", ";
 		}
 		RichEdit1->Lines->Add(OneLine);
@@ -375,6 +384,7 @@ void __fastcall TForm6::ButtonSaveClick(TObject *Sender)
 
 void __fastcall TForm6::ButtonVacationsClick(TObject *Sender)
 {
+	// кнопка Отправить в отпуск с сегодняшнего дня
 	DateLastVacations->Date = TDateTime::CurrentDate();
 	OnDutyChckBox->Checked = false;
 	SetWorker(Selected);
@@ -387,6 +397,7 @@ void __fastcall TForm6::ButtonVacationsClick(TObject *Sender)
 
 void __fastcall TForm6::ButtonFireClick(TObject *Sender)
 {
+	//Кнопка увольнения (и удаления из файла) работника.
 	String Msg = NameEdit->Text+" Do you really want to fire this worker?";
 	if (MessageDlg(Msg,mtConfirmation, TMsgDlgButtons()<<mbYes<<mbNo,0) == idYes) {
 		MyEnterprise->DeleteWorker(Selected->ID);
