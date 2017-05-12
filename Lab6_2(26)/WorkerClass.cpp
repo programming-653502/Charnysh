@@ -7,6 +7,7 @@
 
 AnsiString EduStr(Education degree)
 {
+	//Перевод int значения образования в строку
    AnsiString HisEducation =  "Unknown";
    switch(degree)
    {
@@ -18,6 +19,7 @@ AnsiString EduStr(Education degree)
 }
 AnsiString AppointmentStr(Appointment Pos)
 {
+	//Перевод int значения должности в строку
 	AnsiString HisPosition = "Unknown";
 	switch(Pos)
 	{
@@ -49,6 +51,7 @@ int Enterprise::LoadFromFile(AnsiString FileName)
 		{
 			Worker *NextOne = new Worker;
 			file->Read(NextOne, sizeof(Worker));
+			//Проверка на день рождения
 			if (NextOne->Birthday.month == Today->month && NextOne->Birthday.day == Today->day) {
 				AnsiString Msg = "";
 				Msg.printf(NextOne->Name); //Change this
@@ -102,6 +105,7 @@ int Enterprise::WriteToFile(AnsiString FileName)
 
 void Enterprise::PrintReport()
 {
+	//Функции поиска добаляют номера записей в очередь Report, из нее происходит вывод
 	for (int i = 0; i < Report.getSize(); i++) {
 		Worker *Temp = new Worker;
 		if (AllWorkers.getItem(Report.PopItem(),Temp)>=0) {
@@ -123,6 +127,7 @@ int Enterprise::PopListWorker(Worker* Next, int index)
 
 bool Enterprise::EqualTo(Worker* First, Worker* Second, AnsiString Keys)
 {
+	//Сравнение полей у First и Second, указанных в Keys
 	int Count = 1;
 	int KeysNum = Keys.Length();
 
@@ -286,8 +291,9 @@ bool Enterprise::EqualTo(Worker* First, Worker* Second, AnsiString Keys)
 }
 
 
-int Enterprise::FindByFields(Worker *Wanted, AnsiString Keys, bool Print)
+int Enterprise::FindByFields(Worker *Wanted, AnsiString Keys)
 {
+	//Поиск по полям объекта Wanted, указанных в Keys
 	int Result = -1;
 	for(int i = 0; i < AllWorkers.getSize(); i++)
 	{
@@ -299,7 +305,7 @@ int Enterprise::FindByFields(Worker *Wanted, AnsiString Keys, bool Print)
 		else {
 			Result = i;
 			Temp->ID = i;
-			Report.PushItem(i);
+			Report.PushItem(i); //Добавлени номера найденного в очередь для последующей обработки
 		}
 
 	}
@@ -309,6 +315,7 @@ int Enterprise::FindByFields(Worker *Wanted, AnsiString Keys, bool Print)
 
 int Enterprise::DeleteWorker(Worker *ToDelete)
 {
+	//Удаление по ID объекта
 	int index  = 0;
 	if ((index = FindByFields(ToDelete,"#")) >= 0) {
 		 AllWorkers.deleteItem(index);
@@ -319,10 +326,12 @@ int Enterprise::DeleteWorker(Worker *ToDelete)
 }
 int Enterprise::DeleteWorker(int index)
 {
+	//Удаление по номеру объекта в списке
 	return AllWorkers.deleteItem(index);
 }
 void Enterprise::ListDestructor()
 {
+	//Очищение 2направленного списка хранения
 	AllWorkers.~WorkersL();
 }
 //---------------------------------------------------------------------------
