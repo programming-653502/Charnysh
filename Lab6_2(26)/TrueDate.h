@@ -3,7 +3,7 @@
 #ifndef TrueDateH
 #define TrueDateH
 #include <vcl.h>
-/*custom class to store date and time providing easy access to all fields and convert functions*/
+/*custom class to store date and time providing easy access to all fields and convert functions (из моего курсача))*/
 class TrueDate
 {
 	public:
