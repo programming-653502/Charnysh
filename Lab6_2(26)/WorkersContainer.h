@@ -26,6 +26,7 @@ struct Worker
 	Worker* next;
 	Worker* prev;
 };
+// Класс для реализации 2направленного списка
 class WorkersL
 {
 	Worker *First;
