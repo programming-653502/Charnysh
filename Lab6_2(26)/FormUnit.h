@@ -18,6 +18,9 @@
 #include "ReportIncludesList.h"
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.ExtDlgs.hpp>
+
+//Главная форма
+
 //---------------------------------------------------------------------------
 class TForm6 : public TForm
 {
