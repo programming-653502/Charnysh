@@ -9,7 +9,7 @@
 #include "ReportIncludesList.h"
 #include <vector>
 
-
+//Класс для обработки всех записей базы данных
 AnsiString EduStr(Education degree);
 AnsiString AppointmentStr(Appointment Pos);
 
@@ -17,9 +17,9 @@ class Enterprise
 {
 	String EnterpriseName;
 
-	WorkersL AllWorkers;
+	WorkersL AllWorkers;// 2направленный список всех записей
 
-	ReportList Report;
+	ReportList Report; //Однонаправленный список номеров для вывода
 	void ListDestructor();
 
 	public:
@@ -32,13 +32,11 @@ class Enterprise
 		void PagePrint(Worker* Next);
 		void PrintAll();
 		void PrintReport();
-		//List operations
 		void PushList(Worker* Next);
 		int PopListWorker(Worker* Next, int index);
 		int DeleteWorker(Worker *ToDelete);
 		int DeleteWorker(int index);
-		//int FindByFields(Worker* ToFind, AnsiString Keys);
-		int FindByFields(Worker *Wanted,AnsiString Keys, bool Print = true);
+		int FindByFields(Worker *Wanted,AnsiString Keys);
 		bool EqualTo(Worker* First, Worker* Second, AnsiString Keys);
 
 };
