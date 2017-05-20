@@ -14,6 +14,7 @@
 #include <System.Win.TaskbarCore.hpp>
 #include <Vcl.Taskbar.hpp>
 #include <Vcl.ComCtrls.hpp>
+#include <stdlib.h>
 #include "OKCNHLP1.h"
 #include "CalendarFunctions.h"
 #include <Vcl.JumpList.hpp>;
@@ -21,6 +22,7 @@
 #include "TEVENT.h"
 #include "ExternVars.h"
 #include "ABOUT.h"
+#include "Weather.h"
 AnsiString CurrentFile ="";
 //---------------------------------------------------------------------------
 class TForm6 : public TForm
