@@ -14,6 +14,7 @@
 #pragma package(smart_init)
 #pragma link "ccalendr"
 #pragma resource "*.dfm"
+#pragma comment(lib, "urlmon.lib")
 std::vector  <EVENT> EE;
 
 std::vector <AnsiString> FileNamesVector;//Vextor to store .ics file names
