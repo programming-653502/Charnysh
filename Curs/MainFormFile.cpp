@@ -6,7 +6,7 @@
 
 #pragma once
 #include <vector>
-#include "Unit6.h"
+#include "MainFormFile.h"
 #include "OKCNHLP.h"
 
 
@@ -183,8 +183,22 @@ void DeleteEvent(EVENT* ToDel)
 
 //---------------------------------------------------------------------------
 
-void LoadToday(){	/*Activates functions to read all .ics files, load all the events	to find today events, and the next one,	and starts 30sec timer to track time*/	NextFreeCell = 0;	Form6->StringGrid1->RowCount = 0;	MainClndr.ClearCalendar();	GetFileNames(&FileNamesVector,MeinFile);	LoadAllFiles(&MainClndr,&FileNamesVector);
-	MainClndr.PrintToday(&NextFreeCell);	TDateTime Curr;	Form6->DateTimePicker1->DateTime = Curr.CurrentDateTime();    Form6->Timer1->Enabled = true;}void AddCalendar()
+void LoadToday()
+{
+	/*Activates functions to read all .ics files, load all the events
+	to find today events, and the next one,
+	and starts 30sec timer to track time*/
+	NextFreeCell = 0;
+	Form6->StringGrid1->RowCount = 0;
+	MainClndr.ClearCalendar();
+	GetFileNames(&FileNamesVector,MeinFile);
+	LoadAllFiles(&MainClndr,&FileNamesVector);
+	MainClndr.PrintToday(&NextFreeCell);
+	TDateTime Curr;
+	Form6->DateTimePicker1->DateTime = Curr.CurrentDateTime();
+    Form6->Timer1->Enabled = true;
+}
+void AddCalendar()
 {
 /*Shows dialog if there is no calendars in main file*/
 	if(MessageDlg("There are no calendars added. Would you like to add any?",mtWarning,TMsgDlgButtons()<< mbYes << mbNo,0) == idYes)
@@ -357,3 +371,18 @@ bool __fastcall TForm6::FormHelp(WORD Command, NativeInt Data, bool &CallHelp)
 	AboutBox->ShowModal();
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm6::Button1Click(TObject *Sender)
+{
+	String URL = "http://xml.meteoservice.ru/export/gismeteo/point/34.xml";
+//Lading weather info from website to xml file
+	String FileName = "file.xml";
+//
+	if( URLDownloadToFileW( 0,URL.w_str(), FileName.w_str(),  0, 0) != S_OK)
+	{
+         Button1->Caption = "No Connection. Click to try adain";
+		return;
+	}
+	Forecast *FC = new Forecast(FileName);
+	FC->GetWeather();
+	Button1->Caption = FC->ShowIndo();
+}
